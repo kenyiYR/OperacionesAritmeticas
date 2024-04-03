@@ -1,37 +1,27 @@
-def mcd(a, b):
-    # Manejar el caso en que ambos números son cero
-    if a == 0 and b == 0:
-        return None
-
-    # Algoritmo de Euclides para calcular el MCD
-    while b:
-        a, b = b, a % b
-    return a
-
-
 def obtener_numero_positivo():
+    """Solicita al usuario que ingrese un número positivo o 'T' para terminar."""
     while True:
         try:
-            num = int(input("Ingresa un número positivo (o ingresa 0 para terminar): "))
+            num_str = input("Ingresa un número positivo (o 'T' para terminar): ")
+            if num_str.upper() == 'T':
+                return 'T'  # Devuelve 'T' para indicar que se desea terminar el proceso
+            num = int(num_str)
             if num < 0:
-                print("Por favor, ingresa un número positivo.")
+                print("Por favor, ingresa un número positivo mayor o igual a cero.")
             else:
                 return num
         except ValueError:
-            print("Por favor, ingresa un número entero válido.")
+            print("Por favor, ingresa un número entero válido o 'T' para terminar.")
 
-
-# Solicitar números hasta que se ingrese uno positivo
-num1 = obtener_numero_positivo()
-if num1 == 0:
-    print("Has ingresado 0 como primer número. El programa ha terminado.")
-else:
+# Bucle principal para solicitar números y calcular el MCD
+while True:
+    num1 = obtener_numero_positivo()
+    if num1 == 'T':
+        print("Has ingresado 'T' para terminar el proceso. El programa ha terminado.")
+        break
     num2 = obtener_numero_positivo()
-    if num2 == 0:
-        print("Has ingresado 0 como segundo número. El programa ha terminado.")
-    else:
-        resultado = mcd(num1, num2)
-        if resultado is None:
-            print("No hay máximo común divisor cuando ambos números son 0.")
-        else:
-            print("El máximo común divisor de", num1, "y", num2, "es:", resultado)
+    if num2 == 'T':
+        print("Has ingresado 'T' para terminar el proceso. El programa ha terminado.")
+        break
+    resultado = mcd(num1, num2)
+    print("El máximo común divisor de", num1, "y", num2, "es:", resultado)
